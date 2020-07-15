@@ -12,7 +12,12 @@ const controls = (props) => (
     <div className={classes.Controls}>
         {
             controlsArray.map(item => (
-                <Control key={item.label} label={item.label}/>
+                <Control
+                    key={item.label}
+                    label={item.label}
+                    added={() => props.ingredientAdded(item.type)}
+                    removed={() => props.ingredientRemoved(item.type)}
+                />
             ))
         }
     </div>
