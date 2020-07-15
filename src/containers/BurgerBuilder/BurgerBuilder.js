@@ -29,6 +29,7 @@ class BurgerBuilder extends Component {
         });
     };
     removeIngredientHandler = (type) => {
+        if (this.state.ingredients[type] <=0) return;
         const newAmount = this.state.ingredients[type] - 1;
         const newPrice = this.state.totalPrice - INGREDIENTS_PRICES[type];
         const clonedIngredients = {...this.state.ingredients};
@@ -39,14 +40,20 @@ class BurgerBuilder extends Component {
         })
     };
     render() {
-       return (
+        const disabledRemoveInfo = { ...this.state.ingredients };
+        for (let key in disabledRemoveInfo) {
+            disabledRemoveInfo[key] = disabledRemoveInfo[key] === 0;
+        }
+        return (
            <Wrapper>
                <Burger ingredients={this.state.ingredients}/>
                <Controls
                     ingredientAdded={this.addIngredientHandler}
-                    ingredientRemoved={this.removeIngredientHandler}/>
+                    ingredientRemoved={this.removeIngredientHandler}
+                    removeDisabled={disabledRemoveInfo}
+               />
            </Wrapper>
-       )
+        )
     };
 }
 export default BurgerBuilder;
