@@ -10,6 +10,7 @@ const controlsArray = [
 ];
 const controls = (props) => (
     <div className={classes.Controls}>
+        <p>Current price: <b>{props.price.toFixed(2)}</b></p>
         {
             controlsArray.map(item => (
                 <Control
