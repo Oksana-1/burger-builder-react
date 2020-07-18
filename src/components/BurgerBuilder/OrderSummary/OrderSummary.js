@@ -1,5 +1,6 @@
 import React from 'react';
 import Wrapper from '../../../hoc/Wrapper';
+import Button from '../../UI/Button/Button';
 const orderSummary = (props) => {
   const ingredientSummary = Object.keys(props.ingredients)
     .map(ingredientName => {
@@ -17,6 +18,9 @@ const orderSummary = (props) => {
       <ul>
         { ingredientSummary }
       </ul>
+      <p>Do you want to continue checkout?</p>
+      <Button btnType={'Danger'} clicked={props.closeModal}>CANCEL</Button>
+      <Button btnType={'Success'} clicked={props.closeModal}>CONTINUE</Button>
     </Wrapper>
     );
 };
