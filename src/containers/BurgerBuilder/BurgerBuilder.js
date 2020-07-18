@@ -20,14 +20,15 @@ class BurgerBuilder extends Component {
             bacon: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing: false
     };
-    checkIfPurchasable(ingredients) {
+    checkIfPurchasable = (ingredients) => {
         const ingredientsSum = Object.keys(ingredients).reduce((total, ingredient) => {
             return total + ingredients[ingredient];
         }, 0);
         this.setState({ purchasable: ingredientsSum > 0 });
-    }
+    };
     addIngredientHandler = (type) => {
         const newAmount = this.state.ingredients[type] + 1;
         const newPrice = this.state.totalPrice + INGREDIENTS_PRICES[type];
@@ -51,6 +52,10 @@ class BurgerBuilder extends Component {
         });
         this.checkIfPurchasable(clonedIngredients);
     };
+    purchasingHandler = () => {
+        this.setState({purchasing: true});
+        console.log(this.state.purchasing)
+    }
     render() {
         const disabledRemoveInfo = { ...this.state.ingredients };
         for (let key in disabledRemoveInfo) {
@@ -65,8 +70,9 @@ class BurgerBuilder extends Component {
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     removeDisabled={disabledRemoveInfo}
+                    ordered={this.purchasingHandler}
                />
-               <Modal><OrderSummary ingredients={this.state.ingredients}/></Modal>
+               <Modal show={this.state.purchasing}><OrderSummary ingredients={this.state.ingredients}/></Modal>
            </Wrapper>
         )
     };

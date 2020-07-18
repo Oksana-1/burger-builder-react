@@ -22,7 +22,12 @@ const controls = (props) => (
                 />
             ))
         }
-        <button className={classes.OrderButton} disabled={!props.orderBtnAvailable}>Order now</button>
+        <button
+          className={classes.OrderButton}
+          disabled={!props.orderBtnAvailable}
+          onClick={props.ordered}>
+          Order now
+        </button>
     </div>
 );
 export default controls;
