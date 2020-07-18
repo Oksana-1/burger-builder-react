@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Wrapper from '../../hoc/Wrapper';
 import Burger from '../../components/BurgerBuilder/Burger';
 import Controls from '../../components/BurgerBuilder/Controls/Controls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/BurgerBuilder/OrderSummary/OrderSummary';
+
 const INGREDIENTS_PRICES = {
     salad: 0.5,
     meat: 1.5,
@@ -63,6 +66,7 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientHandler}
                     removeDisabled={disabledRemoveInfo}
                />
+               <Modal><OrderSummary ingredients={this.state.ingredients}/></Modal>
            </Wrapper>
         )
     };
