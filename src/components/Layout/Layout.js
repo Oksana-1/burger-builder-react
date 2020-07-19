@@ -1,9 +1,12 @@
 import React from 'react';
 import classes from './Layout.css';
 import Wrapper from '../../hoc/Wrapper';
+import Toolbar from '../Navigation/Toolbar/Toolbar'
 const layout = ( props ) => (
     <Wrapper>
-        <div>Toolbar, Drawer, BackDrop</div>
+        <header>
+          <Toolbar/>
+        </header>
         <main className={ classes.Content }>
             {props.children}
         </main>
