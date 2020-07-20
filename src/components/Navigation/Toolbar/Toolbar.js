@@ -5,8 +5,10 @@ import NavigationList from '../NavigationList/NavigationList';
 const toolbar = () => (
   <div className={classes.Toolbar}>
     <div>Menu</div>
-    <Logo/>
-    <nav>
+    <div className={classes.ToolbarLogo}>
+      <Logo/>
+    </div>
+    <nav className={classes.DesktopOnly}>
       <NavigationList/>
     </nav>
   </div>
