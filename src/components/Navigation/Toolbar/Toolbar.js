@@ -2,9 +2,13 @@ import React from 'react';
 import classes from './Toolbar.css';
 import Logo from '../../Logo/Logo';
 import NavigationList from '../NavigationList/NavigationList';
-const toolbar = () => (
+const toolbar = (props) => (
   <div className={classes.Toolbar}>
-    <div>Menu</div>
+      <div className={classes.DrawerToggle} onClick={props.mobileMenuOpened}>
+          <div></div>
+          <div></div>
+          <div></div>
+      </div>
     <div className={classes.ToolbarLogo}>
       <Logo/>
     </div>

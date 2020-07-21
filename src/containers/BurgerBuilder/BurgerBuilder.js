@@ -57,7 +57,7 @@ class BurgerBuilder extends Component {
     };
     purchasingCancelHandler = () => {
         this.setState({purchasing: false});
-    }
+    };
     render() {
         const disabledRemoveInfo = { ...this.state.ingredients };
         for (let key in disabledRemoveInfo) {
