@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import classes from './Layout.css';
-import Wrapper from '../../hoc/Wrapper';
-import Toolbar from '../Navigation/Toolbar/Toolbar';
-import MobileMenu from "../Navigation/MobileMenu/MobileMenu";
+import Wrapper from '../Wrapper/Wrapper';
+import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import MobileMenu from "../../components/Navigation/MobileMenu/MobileMenu";
 class Layout extends Component {
     state = {
         mobileMenuIsOpen: false

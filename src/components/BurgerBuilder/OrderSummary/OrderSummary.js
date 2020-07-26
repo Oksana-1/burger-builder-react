@@ -1,5 +1,5 @@
 import React from 'react';
-import Wrapper from '../../../hoc/Wrapper';
+import Wrapper from '../../../hoc/Wrapper/Wrapper';
 import Button from '../../UI/Button/Button';
 const orderSummary = (props) => {
   const ingredientSummary = Object.keys(props.ingredients)
