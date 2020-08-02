@@ -4,6 +4,7 @@ import Burger from '../../components/BurgerBuilder/Burger';
 import Controls from '../../components/BurgerBuilder/Controls/Controls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/BurgerBuilder/OrderSummary/OrderSummary';
+import axios from '../../axios-order';
 
 const INGREDIENTS_PRICES = {
     salad: 0.5,
@@ -58,6 +59,30 @@ class BurgerBuilder extends Component {
     purchasingCancelHandler = () => {
         this.setState({purchasing: false});
     };
+    purchasingContinueHandler = () => {
+        //alert('Success');
+        const order = {
+            ingredients: this.state.ingredients,
+            totalPrice: this.state.totalPrice,
+            customer: {
+                name: 'Oksana',
+                address: {
+                    street: 'Teststreet 1',
+                    city: 'Kyiv',
+                    country: 'Ukraine'
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post('/orders.json', order)
+            .then((response)=> {
+                console.log(response);
+            })
+            .catch(e => {
+                console.log(e)
+            });
+    };
     render() {
         const disabledRemoveInfo = { ...this.state.ingredients };
         for (let key in disabledRemoveInfo) {
@@ -80,7 +105,8 @@ class BurgerBuilder extends Component {
                     <OrderSummary
                       ingredients={this.state.ingredients}
                       price={this.state.totalPrice}
-                      closeModal={this.purchasingCancelHandler}/>
+                      closeModal={this.purchasingCancelHandler}
+                      orderBurger={this.purchasingContinueHandler}/>
                </Modal>
            </Wrapper>
         )
