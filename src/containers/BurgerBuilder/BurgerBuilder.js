@@ -6,6 +6,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/BurgerBuilder/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-order';
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 const INGREDIENTS_PRICES = {
     salad: 0.5,
@@ -77,13 +78,14 @@ class BurgerBuilder extends Component {
             },
             deliveryMethod: 'fastest'
         }
-        axios.post('/orders.json', order)
+        axios.post('/orders', order)
             .then((response)=> {
                 console.log(response);
             })
             .catch(e => {
                 console.log(e)
             });
+        this.setState({purchasing: false});
     };
     render() {
         const disabledRemoveInfo = { ...this.state.ingredients };
@@ -125,4 +127,4 @@ class BurgerBuilder extends Component {
         )
     };
 }
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
