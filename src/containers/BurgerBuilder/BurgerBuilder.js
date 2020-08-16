@@ -20,11 +20,18 @@ class BurgerBuilder extends Component {
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
-        busy: false
+        busy: true
     };
     componentDidMount() {
-        axios.get('/ingredients.json').then((response) => {
+        axios.get('/ingredients.json')
+        .then(response => {
             this.setState({ingredients: response.data});
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+        .finally(() => {
+            this.setState({busy: false})
         });
     }
     checkIfPurchasable = (ingredients) => {
@@ -63,7 +70,7 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false});
     };
     purchasingContinueHandler = () => {
-        //alert('Success');
+        this.setState({busy: true});
         const order = {
             ingredients: this.state.ingredients,
             totalPrice: this.state.totalPrice,
@@ -79,11 +86,11 @@ class BurgerBuilder extends Component {
             deliveryMethod: 'fastest'
         }
         axios.post('/orders.json', order)
-            .then((response)=> {
-                this.purchasingCancelHandler();
+            .then(response => {
+               this.setState({busy: false, purchasing: false});
             })
             .catch(e => {
-                console.log(e)
+                this.setState({busy: false, purchasing: false});
             });
     };
     render() {
@@ -103,7 +110,9 @@ class BurgerBuilder extends Component {
         );
         if (!this.state.ingredients) {
             burger = (<Spinner/>) ;
-            orderSummary = (<Spinner/>)
+        }
+        if (this.state.busy) {
+            orderSummary = (<Spinner/>);
         }
         return (
            <Wrapper>
