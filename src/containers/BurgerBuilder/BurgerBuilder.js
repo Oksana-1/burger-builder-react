@@ -7,6 +7,7 @@ import OrderSummary from '../../components/BurgerBuilder/OrderSummary/OrderSumma
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-order';
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import { setLocalStorageItem } from "../../utils";
 
 const INGREDIENTS_PRICES = {
     salad: 0.5,
@@ -21,14 +22,16 @@ class BurgerBuilder extends Component {
         purchasable: false,
         purchasing: false,
         busy: true,
-        loadIngredientsError: false
+        loadIngredientsError: false,
+        sendOrderError: false,
     };
     componentDidMount() {
         axios.get('/ingredients.json')
         .then(response => {
             this.setState({ingredients: response.data});
         })
-        .catch(() => {
+        .catch((e) => {
+            console.error(e);
             this.setState({loadIngredientsError: true})
         })
         .finally(() => {
@@ -88,10 +91,12 @@ class BurgerBuilder extends Component {
         }
         axios.post('/orders.json', order)
             .then(response => {
-               this.setState({busy: false, purchasing: false});
-            })
-            .catch(e => {
+                setLocalStorageItem('orderId', response.data.name);
                 this.setState({busy: false, purchasing: false});
+            })
+            .catch((e)=> {
+                console.error(e);
+                this.setState({busy: false, purchasing: false, sendOrderError: true});
             });
     };
     render() {
