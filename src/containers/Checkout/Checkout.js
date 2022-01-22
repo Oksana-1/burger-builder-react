@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
-import axios from "../../axios-order";
+import axios from "../../api/axios-order";
 import { getLocalStorageItem } from "../../utils";
 class Checkout extends Component {
     state = {
